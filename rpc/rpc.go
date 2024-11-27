@@ -44,3 +44,27 @@ func DecodeMessage(msg []byte) (string, []byte, error) {
 
 	return baseMessage.Method, content[:contentLength], nil
 }
+
+func Split(data []byte, _ bool) (advance int, token []byte, err error) {
+	//
+	header, content, found := bytes.Cut(data, []byte{'\r', '\n', '\r', '\n'})
+
+	if !found {
+		return 0, nil, nil
+	}
+	contentLengthBytes := header[len("Content-Length: "):]
+	contentLength, err := strconv.Atoi(string(contentLengthBytes))
+	if err != nil {
+		return 0, nil, err
+	}
+
+	if len(content) < contentLength {
+		//not ready as not read enough bytes
+		return 0, nil, nil
+	}
+
+	// \r\n\r\n adds the 4 bytes
+	totalLength := len(header) + 4 + contentLength
+	return totalLength, data[:totalLength], nil
+
+}
