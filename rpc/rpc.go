@@ -25,10 +25,10 @@ func DecodeMessage(msg []byte) (int, error) {
 	}
 
 	// Content-Length: <number> ...(other text)
-	contentLengthBytes := header[len("Content-Length:"):]
+	contentLengthBytes := header[len("Content-Length: "):]
 	contentLength, err := strconv.Atoi(string(contentLengthBytes))
 	if err != nil {
-		return 0, errors.New("cannot convert to number")
+		return 0, err
 	}
 	_ = content
 	return contentLength, nil
