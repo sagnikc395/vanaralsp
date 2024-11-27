@@ -18,15 +18,18 @@ func TestEncode(t *testing.T) {
 }
 
 func TestDecode(t *testing.T) {
-	incomingMessage := "Content-Length: 16\r\n\r\n{\"Testing\":true}"
+	incomingMessage := "Content-Length: 15\r\n\r\n{\"Method\":\"hi\"}"
 
-	contentLength, err := DecodeMessage([]byte(incomingMessage))
+	method, contentLength, err := DecodeMessage([]byte(incomingMessage))
 
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if contentLength != 16 {
-		t.Fatalf("Expected: 16,Actual: %d", contentLength)
+	if contentLength != 15 {
+		t.Fatalf("Expected: 15,Actual: %d", contentLength)
+	}
+	if method != "hi" {
+		t.Fatalf("Expected: 'hi', Got: %s", method)
 	}
 }
