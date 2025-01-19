@@ -1,5 +1,3 @@
-## vanaraLSP
+## vanaralsp
 
-An LSP made for the Vanara Programming Environment , following along :
-[Docs](https://code.visualstudio.com/api/language-extensions/language-server-extension-guide)
-
+an lsp for the [vanara](https://github.com/sagnikc395/vanara) compiler.
